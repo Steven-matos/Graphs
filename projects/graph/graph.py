@@ -51,7 +51,7 @@ class Graph:
             if current_node not in visted:
                 # mark as visited
                 visted.add(current_node)
-                print(f"BFT: {current_node}")
+                print(current_node)
                 # get its neighbors
                 neighbors = self.get_neighbors(current_node)
                 # for each of the neighbors add to the queue
@@ -79,7 +79,7 @@ class Graph:
             if current_node not in visited:
                 # mark as visited
                 visited.add(current_node)
-                print(f"DFT: {current_node}")
+                print(current_node)
                 # get its neighbors
                 neighbors = self.get_neighbors(current_node)
                 # for each of the neighbors
@@ -95,7 +95,7 @@ class Graph:
         This should be done using recursion.
         """
         if starting_vertex in self.vertices:
-            print(f"DFT-Recurse: {starting_vertex}")
+            print(starting_vertex)
             visited.add(starting_vertex)
             for vertex in self.get_neighbors(starting_vertex):
                 if vertex not in visited:
