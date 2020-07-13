@@ -110,15 +110,55 @@ class Graph:
         q = Queue()
         visited = set()
 
+        q.enqueue([starting_vertex])
+
+        if starting_vertex == destination_vertex:
+            return [starting_vertex]
+
+        while q.size() > 0:
+            direction = q.dequeue()
+            node = direction[-1]
+
+            if node not in visited:
+                visited.add(node)
+
+                for vertex in self.get_neighbors(node):
+                    new_direct = list(direction)
+                    new_direct.append(vertex)
+
+                    q.enqueue(new_direct)
+
+                    if vertex == destination_vertex:
+                        return new_direct
+
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        visited = set()
+        direction = [starting_vertex]
+        if starting_vertex not in self.vertices or destination_vertex not in self.vertices:
+            return None
+        if starting_vertex == destination_vertex:
+            return direction
+        s = Stack()
+        s.push(direction)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+        while s.size() > 0:
+            direction = s.pop()
+            node = direction[-1]
+            if node not in visited:
+                visited.add(node)
+                for vertex in self.get_neighbors(node):
+                    new_direct = list(direction)
+                    new_direct.append(vertex)
+                    s.push(new_direct)
+                    if vertex == destination_vertex:
+                        return new_direct
+
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, direction=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -126,7 +166,25 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        if visited == None:
+            visited = set()
+
+        if direction == None:
+            direction = []
+
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            direct_copy = direction.copy()
+            direct_copy.append(starting_vertex)
+
+            if starting_vertex == destination_vertex:
+                return direct_copy
+
+            for edge in self.get_neighbors(starting_vertex):
+                new_direct = self.dfs_recursive(
+                    edge, destination_vertex, visited=visited, direction=direct_copy)
+                if new_direct is not None:
+                    return new_direct
 
 
 if __name__ == '__main__':
