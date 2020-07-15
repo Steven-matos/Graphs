@@ -13,10 +13,10 @@ def earliest_ancestor(ancestors, starting_node):
         return -1
 
     while s.size():
-        removed = s.pop()
-        parent = removed
-        if removed not in visited:
-            visited.add(removed)
+        removed_parent = s.pop()
+        parent = removed_parent
+        if removed_parent not in visited:
+            visited.add(removed_parent)
             for neighbor in get_neighbors(parent, ancestors):
                 s.push(neighbor)
 
